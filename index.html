@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليلك للستيب - المستوى البسيط</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f766e;
+            --primary-light: #14b8a6;
+            --primary-dark: #115e59;
+            --secondary: #f59e0b;
+            --bg-light: #f0fdf4;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --correct: #16a34a;
+            --incorrect: #dc2626;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Top Header & Title */
+        .header-card {
+            background: linear-gradient(135deg, #ffffff 0%, #ccfbf1 100%);
+            border: 3px solid #99f6e4;
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(15, 118, 110, 0.08);
+        }
+
+        .main-title {
+            color: var(--primary-dark);
+            font-size: 26px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .sub-title {
+            background: var(--primary-light);
+            color: white;
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .teacher-badge {
+            background: white;
+            border: 2px solid var(--primary-light);
+            border-radius: 12px;
+            padding: 10px;
+            display: inline-block;
+            margin-top: 5px;
+            direction: ltr;
+        }
+
+        .teacher-badge p {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .teacher-badge h3 {
+            color: var(--primary-dark);
+            font-size: 18px;
+        }
+
+        /* Student Name Card */
+        .student-card {
+            background: white;
+            border: 2px solid #cbd5e1;
+            border-radius: 15px;
+            padding: 15px 20px;
+        }
+
+        .student-card label {
+            font-weight: 700;
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary-dark);
+        }
+
+        .student-card input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #94a3b8;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .student-card input:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.2);
+        }
+
+        /* Generic Section Card */
+        .section-card {
+            background: white;
+            border-radius: 18px;
+            padding: 20px;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .sec-num {
+            background: var(--primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+
+        .sec-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--primary-dark);
+        }
+
+        /* Vocabulary Table & Grid */
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 12px;
+            direction: ltr;
+        }
+
+        .vocab-item {
+            background: #f0fdf4;
+            border: 2px solid #a7f3d0;
+            border-radius: 12px;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .vocab-item:hover {
+            transform: translateY(-2px);
+            background: #d1fae5;
+            border-color: var(--primary);
+        }
+
+        .vocab-left {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .vocab-word {
+            font-weight: 800;
+            color: var(--primary-dark);
+            font-size: 16px;
+        }
+
+        .vocab-ex {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .vocab-meaning {
+            font-weight: 700;
+            color: #047857;
+            font-size: 14px;
+            direction: rtl;
+        }
+
+        /* Dialogue Box */
+        .dialogue-box {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            direction: ltr;
+        }
+
+        .chat-bubble {
+            padding: 12px 16px;
+            border-radius: 15px;
+            max-width: 85%;
+            line-height: 1.5;
+            position: relative;
+        }
+
+        .chat-speaker {
+            font-weight: 800;
+            font-size: 12px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .person1 {
+            background: #e0f2fe;
+            border: 1px solid #bae6fd;
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+        }
+
+        .person1 .chat-speaker { color: #0369a1; }
+
+        .person2 {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+        }
+
+        .person2 .chat-speaker { color: #15803d; }
+
+        .highlight-word {
+            background: #fef08a;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        .listen-btn {
+            background: var(--primary-light);
+            color: white;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 11px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        /* Extended Quiz */
+        .quiz-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #cbd5e1;
+        }
+
+        .quiz-q {
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-size: 16px;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .quiz-q-ar {
+            font-size: 13px;
+            color: var(--text-muted);
+            direction: rtl;
+            text-align: right;
+            margin-bottom: 8px;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            direction: ltr;
+        }
+
+        .opt-btn {
+            padding: 10px 15px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: left;
+        }
+
+        .opt-btn:hover {
+            border-color: var(--primary-light);
+            background: #f0fdf4;
+        }
+
+        .opt-btn.correct {
+            background: #dcfce7 !important;
+            border-color: var(--correct) !important;
+            color: #15803d;
+        }
+
+        .opt-btn.incorrect {
+            background: #fee2e2 !important;
+            border-color: var(--incorrect) !important;
+            color: #b91c1c;
+        }
+
+        /* Certificate Score Box */
+        .score-card {
+            background: linear-gradient(135deg, #0f766e, #115e59);
+            color: white;
+            border-radius: 18px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(15, 118, 110, 0.2);
+        }
+
+        .score-card h2 {
+            font-size: 26px;
+            margin-bottom: 5px;
+        }
+
+        .score-number {
+            font-size: 48px;
+            font-weight: 800;
+            color: #fef08a;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header Box -->
+    <div class="header-card">
+        <div class="main-title">
+            <span>🐥</span>
+            <span>المستوى البسيط</span>
+        </div>
+        <div class="sub-title">دليلك للستيب - المفردات والجرامار التفاعلي</div>
+        
+        <div>
+            <div class="teacher-badge">
+                <p>Prepared by</p>
+                <h3>Mr. Mohamed Abdalla Abo Fahad</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Name -->
+    <div class="student-card">
+        <label for="studentName">اسم الطالب / الطالبة:</label>
+        <input type="text" id="studentName" placeholder="اكتب اسمك هنا لتخصيص نتيجة التقييم..." oninput="updateStudentName()">
+    </div>
+
+    <!-- 1. Vocabulary Grid -->
+    <div class="section-card">
+        <div class="section-header">
+            <div class="sec-num">1</div>
+            <div class="sec-title">قائمة المفردات والأمثلة (اضغط للاستماع)</div>
+        </div>
+        <div class="vocab-grid" id="vocabGrid"></div>
+    </div>
+
+    <!-- 2. Interactive Dialogue -->
+    <div class="section-card">
+        <div class="section-header">
+            <div class="sec-num">2</div>
+            <div class="sec-title">محادثة تفاعلية باستخدام الكلمات</div>
+        </div>
+        <div class="dialogue-box" id="dialogueBox"></div>
+    </div>
+
+    <!-- 3. Extended Quiz Section -->
+    <div class="section-card">
+        <div class="section-header">
+            <div class="sec-num">3</div>
+            <div class="sec-title">اختبار استيعاب المفردات (10 أسئلة)</div>
+        </div>
+        <div id="quizContainer"></div>
+    </div>
+
+    <!-- Final Score Display -->
+    <div class="score-card">
+        <h2>ممتاز، <span id="displayName">يا بطل</span>!</h2>
+        <p>مجموع نقاطك في الاختبار التفاعلي</p>
+        <div class="score-number"><span id="userScore">0</span> / 10</div>
+        <p id="feedbackMsg">أجب عن الأسئلة أعلاه لإظهار درجتك النهائية وتوثيق اسمك.</p>
+    </div>
+</div>
+
+<script>
+    // Vocabulary Data from STEP Simple Level
+    const vocabData = [
+        { word: 'have', meaning: 'يمتلك', ex: 'I have two sisters.' },
+        { word: 'do', meaning: 'يفعل', ex: 'I must do my homework.' },
+        { word: 'will', meaning: 'سوف', ex: 'She will arrive tonight.' },
+        { word: 'say', meaning: 'يقول', ex: 'Please say your name.' },
+        { word: 'go', meaning: 'يذهب', ex: "We'll go hiking." },
+        { word: 'can', meaning: 'يستطيع', ex: 'You can play tennis.' },
+        { word: 'know', meaning: 'يعرف', ex: "I don't know him." },
+        { word: 'get', meaning: 'يحضر / يحصل', ex: "Let's get groceries." },
+        { word: 'think', meaning: 'يفكر / يعتقد', ex: 'Think again about it.' },
+        { word: 'make', meaning: 'يصنع', ex: 'She makes great cookies.' },
+        { word: 'time', meaning: 'وقت', ex: 'Manage your time.' },
+        { word: 'see', meaning: 'يرى', ex: 'See the sunset.' },
+        { word: 'other', meaning: 'آخر', ex: 'Any other questions?' },
+        { word: 'good', meaning: 'جيد', ex: 'Eat for good health.' },
+        { word: 'people', meaning: 'الناس', ex: 'People are chatting in the park.' },
+        { word: 'year', meaning: 'عام', ex: 'This year has been challenging.' },
+        { word: 'take', meaning: 'يأخذ', ex: 'Please take a seat.' },
+        { word: 'come', meaning: 'يأتي', ex: 'Come to the party tonight.' },
+        { word: 'work', meaning: 'يعمل / عمل', ex: 'I need to work on my project.' },
+        { word: 'use', meaning: 'يستخدم', ex: 'Can I use your pen?' },
+        { word: 'only', meaning: 'فقط', ex: 'I have only one cookie left.' }
+    ];
+
+    // Dialogue Data
+    const dialogueData = [
+        { speaker: 'Sarah', text: 'Hi Omar! What <span class="highlight-word">will</span> you <span class="highlight-word">do</span> this weekend?', type: 'person1' },
+        { speaker: 'Omar', text: 'I <span class="highlight-word">think</span> I <span class="highlight-word">will</span> <span class="highlight-word">go</span> to the library to <span class="highlight-word">work</span> on my project.', type: 'person2' },
+        { speaker: 'Sarah', text: 'Do you <span class="highlight-word">have</span> <span class="highlight-word">time</span> to <span class="highlight-word">see</span> a movie later?', type: 'person1' },
+        { speaker: 'Omar', text: 'Yes, I <span class="highlight-word">can</span> <span class="highlight-word">come</span> at 6 PM. <span class="highlight-word">Only</span> <span class="highlight-word">good</span> <span class="highlight-word">people</span> allowed!', type: 'person2' },
+        { speaker: 'Sarah', text: 'Haha! <span class="highlight-word">Say</span> no more, I will <span class="highlight-word">take</span> my <span class="highlight-word">other</span> friend with us.', type: 'person1' }
+    ];
+
+    // Quiz Questions Data (10 Questions)
+    const quizQuestions = [
+        { q: "1. Manage your ________ to finish the exam.", ar: "أدر ........ لإكمال الاختبار.", opts: ["time", "year", "people", "work"], ans: "time" },
+        { q: "2. Can I ________ your pen for a minute?", ar: "هل يمكنني ........ قلمك لدقيقة؟", opts: ["see", "use", "make", "think"], ans: "use" },
+        { q: "3. She ________ arrive tonight at 8 PM.", ar: "هي ........ تصل الليلة الساعة الثامنة.", opts: ["will", "can", "do", "take"], ans: "will" },
+        { q: "4. I need to ________ on my school project.", ar: "أحتاج إلى ........ على مشروع مدرستي.", opts: ["work", "go", "get", "say"], ans: "work" },
+        { q: "5. Eat healthy food for ________ health.", ar: "تناول طعاماً صحياً لصحة ........", opts: ["other", "only", "good", "year"], ans: "good" },
+        { q: "6. Please ________ your name out loud.", ar: "من فضلك ........ اسمك بصوت عالٍ.", opts: ["say", "do", "make", "know"], ans: "say" },
+        { q: "7. You can ________ a seat right here.", ar: "يمكنك أن ........ مقعداً هنا.", opts: ["take", "think", "come", "see"], ans: "take" },
+        { q: "8. I don't ________ the answer to this question.", ar: "أنا لا ........ إجابة هذا السؤال.", opts: ["make", "know", "use", "go"], ans: "know" },
+        { q: "9. Many ________ are chatting in the quiet park.", ar: "العديد من ........ يتحدثون في الحديقة الهادئة.", opts: ["people", "year", "time", "other"], ans: "people" },
+        { q: "10. I have ________ one cookie left in the box.", ar: "لدي قطعة كعك واحدة ........ متبقية في الصندوق.", opts: ["only", "good", "can", "will"], ans: "only" }
+    ];
+
+    let userScore = 0;
+    let answeredQuestions = 0;
+
+    // Render Vocab Grid
+    function renderVocab() {
+        const grid = document.getElementById('vocabGrid');
+        grid.innerHTML = vocabData.map(v => `
+            <div class="vocab-item" onclick="speakText('${v.word}. Example: ${v.ex}')">
+                <div class="vocab-left">
+                    <span class="vocab-word">${v.word}</span>
+                    <span class="vocab-ex">${v.ex}</span>
+                </div>
+                <span class="vocab-meaning">${v.meaning}</span>
+            </div>
+        `).join('');
+    }
+
+    // Render Dialogue
+    function renderDialogue() {
+        const box = document.getElementById('dialogueBox');
+        box.innerHTML = dialogueData.map(d => `
+            <div class="chat-bubble ${d.type}">
+                <div class="chat-speaker">
+                    <span>${d.speaker}</span>
+                    <button class="listen-btn" onclick="speakText('${d.text.replace(/<[^>]*>?/gm, '')}')">🔊 استمع</button>
+                </div>
+                <div>${d.text}</div>
+            </div>
+        `).join('');
+    }
+
+    // Render Quiz
+    function renderQuiz() {
+        const container = document.getElementById('quizContainer');
+        container.innerHTML = quizQuestions.map((q, i) => `
+            <div class="quiz-item">
+                <div class="quiz-q-ar">${q.ar}</div>
+                <div class="quiz-q">${q.q}</div>
+                <div class="options-grid">
+                    ${q.opts.map(opt => `
+                        <button class="opt-btn" id="opt-${i}-${opt}" onclick="checkQuizAnswer(${i}, '${opt}')">${opt}</button>
+                    `).join('')}
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Check Answer
+    function checkQuizAnswer(qIndex, selectedOpt) {
+        const correctOpt = quizQuestions[qIndex].ans;
+        const buttons = document.querySelectorAll(`[id^="opt-${qIndex}-"]`);
+
+        buttons.forEach(btn => btn.disabled = true);
+
+        const selectedBtn = document.getElementById(`opt-${qIndex}-${selectedOpt}`);
+        const correctBtn = document.getElementById(`opt-${qIndex}-${correctOpt}`);
+
+        if (selectedOpt === correctOpt) {
+            userScore++;
+            selectedBtn.classList.add('correct');
+        } else {
+            selectedBtn.classList.add('incorrect');
+            correctBtn.classList.add('correct');
+        }
+
+        answeredQuestions++;
+        document.getElementById('userScore').innerText = userScore;
+
+        if (answeredQuestions === quizQuestions.length) {
+            const name = document.getElementById('studentName').value || 'يا بطل';
+            document.getElementById('feedbackMsg').innerText = `أحسنت يا ${name}! أنهيت الاختبار بنجاح وحصلت على ${userScore} من 10 نقاط!`;
+        }
+    }
+
+    // Speech Synthesis
+    function speakText(text) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.9;
+            window.speechSynthesis.speak(utterance);
+        }
+    }
+
+    // Update Student Name Live
+    function updateStudentName() {
+        const name = document.getElementById('studentName').value;
+        document.getElementById('displayName').innerText = name.trim() !== '' ? name : 'يا بطل';
+    }
+
+    // Initial Execution
+    window.onload = function() {
+        renderVocab();
+        renderDialogue();
+        renderQuiz();
+    };
+</script>
+
+</body>
+</html>
